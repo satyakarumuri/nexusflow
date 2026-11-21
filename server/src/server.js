@@ -39,7 +39,7 @@ function ingestReading(input) {
 app.get('/api/health', (req,res) => res.json({ status:'ok', service:'NexusFlow API', database:'SQLite', simulator:simulatorRunning() }));
 
 app.get('/api/dashboard/summary', wrap((req,res) => {
-  const devices = db.prepare('SELECT COUNT(*) AS total, SUM(CASE WHEN status="online" THEN 1 ELSE 0 END) AS online FROM devices').get();
+  const devices = db.prepare("SELECT COUNT(*) AS total, SUM(CASE WHEN status='online' THEN 1 ELSE 0 END) AS online FROM devices").get();
   const readings = db.prepare('SELECT COUNT(*) AS total FROM telemetry').get();
   const alerts = db.prepare('SELECT COUNT(*) AS total, SUM(CASE WHEN acknowledged=0 THEN 1 ELSE 0 END) AS unacknowledged FROM alerts').get();
   const latest = db.prepare('SELECT recorded_at FROM telemetry ORDER BY id DESC LIMIT 1').get();
