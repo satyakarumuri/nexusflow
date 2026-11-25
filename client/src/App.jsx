@@ -168,7 +168,26 @@ function Devices({devices,search,setSearch,onDelete,onAdd}) {
 );
   return <section className="panel page-panel"><div className="toolbar"><div className="search-box"><Search size={16}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search devices..."/></div><span className="muted-count">{filtered.length} devices</span></div>
     <div className="table-wrap"><table><thead><tr><th>DEVICE</th><th>TYPE</th><th>LOCATION</th><th>LATEST READING</th><th>STATUS</th><th></th></tr></thead><tbody>{filtered.map(d=><tr key={d.id}><td><div className="table-device"><div className="device-symbol"><Cpu size={16}/></div><div><b>{d.name}</b><small>{d.id}</small></div></div></td><td>{d.type}</td><td>{d.location||'â€”'}</td><td>{d.latest_value!==null&&d.latest_value!==undefined?<b>{d.latest_value} {d.latest_unit}</b>:'No readings'}</td><td><span className={`pill ${d.status==='online'?'pill-online':'pill-offline'}`}><i/>{d.status}</span></td><td><button className="row-action" onClick={()=>onDelete(d.id)} title="Delete device"><X size={16}/></button></td></tr>)}</tbody></table></div>
-    {!filtered.length&&<div className="empty-state"><Cpu size={28}/><b>No devices found</b><span>Try another search or register a device.</span><button className="btn btn-primary" onClick={onAdd}><Plus size={16}/> Add device</button></div>}
+    {!filtered.length && (
+  <div className="empty-state">
+    <Cpu size={28}/>
+    <b>{devices.length ? 'No matching devices' : 'No devices found'}</b>
+    <span>
+      {devices.length
+        ? 'Try adjusting your search or clear it to see all devices.'
+        : 'Register your first IoT device to get started.'}
+    </span>
+    {devices.length ? (
+      <button className="btn btn-light" onClick={() => setSearch('')}>
+        Clear search
+      </button>
+    ) : (
+      <button className="btn btn-primary" onClick={onAdd}>
+        <Plus size={16}/> Add device
+      </button>
+    )}
+  </div>
+)}
   </section>;
 }
 
