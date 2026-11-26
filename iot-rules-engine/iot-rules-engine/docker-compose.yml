@@ -1,0 +1,42 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand({ ping: 1 })"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      MONGO_URI: mongodb://mongo:27017/iot_rules
+      CORS_ORIGIN: "*"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+  # Optional demo fleet:  docker compose --profile demo up
+  simulator:
+    profiles: ["demo"]
+    build: ./backend
+    command: ["node", "src/simulator/simulate.js", "--devices", "6", "--rate", "2", "--api", "http://backend:4000"]
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
