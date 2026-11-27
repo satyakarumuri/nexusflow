@@ -1,5 +1,7 @@
 # NexusFlow — Visual IoT Telemetry & Dynamic RxJS Rule Engine
 
+> **Team Project:** IoT Telemetry Processing and Rule Automation.
+
 NexusFlow is a real-time, no-code visual rule engine and IoT telemetry platform built with **React**, **React Flow**, **Recharts**, **Node.js / Express**, **RxJS**, **WebSockets**, and **MongoDB 5.0+ Time-Series** collections.
 
 Factory floor managers can visually wire **Data Sources** (`Turbine Sensor`) → **Math Operations** (`Moving Average Filter`, `Math Transform`, `Threshold`, `AND/OR Logic Gate`) → **Action Triggers** (`SMS Alert`, `HTTP Webhook`), compile the visual graph directly into concurrent in-memory RxJS `Observable` pipelines, and watch live telemetry streams, glowing canvas wires, and anomaly alerts in real time.
