@@ -1,0 +1,23 @@
+{
+  "name": "nexusflow-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "NexusFlow backend: MongoDB Time-Series ingestion, RxJS stream compiler, Express API & WebSocket server",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test test/*.test.js",
+    "simulate": "node src/simulator/telemetrySimulator.js",
+    "benchmark": "node src/benchmark/ingestionAudit.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.9.0",
+    "rxjs": "^7.8.1",
+    "uuid": "^10.0.0",
+    "ws": "^8.18.0"
+  }
+}
